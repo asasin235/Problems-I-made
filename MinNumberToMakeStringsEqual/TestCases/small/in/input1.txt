@@ -1,0 +1,9 @@
+4
+a_b
+ab_
+aba_a
+_baaa
+ab_bba
+bbbaa_
+aa_ab
+b_aaa

@@ -62,8 +62,11 @@ bool sudokuChecker(vector<vector<int>> &original, vector<vector<int>> &solution)
 }
 
 int main() {
+
+
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
+
     vector<vector<int>> wor;
     vector<vector<int>> sol;
     for (int i = 0; i < 9; i++) {
@@ -76,6 +79,13 @@ int main() {
         wor.push_back(temp);
     }
     sol = solveSudoku(wor);
+    for (int i = 0; i < 9; i++) {
+        for (int j = 0; j < 9; j++) {
+            cout << sol[i][j] << " ";
+
+        }
+        cout << endl;
+    }
 
     if (sudokuChecker(wor, sol)) {
         cout << "CORRECT SOLUTION\n";

@@ -5,57 +5,58 @@
     Where 'n' is the number of elements int the sequence and 'q' is the number of queries.
 */
 
-void updateFenwick(vector<int> &fenwick, int n, int idx, int val) {
-    // idx in fenwickTree[] is 1 more than the idx in arr[]
-    idx = idx + 1;
+class FenwickTree {
+    public:
+    vector<int> bit;  // binary indexed tree
+    int n;
 
-    // Traverse all ancestors and add 'val'
-    while (idx <= n) {
-        // Add 'val' to current node of BI Tree
-        fenwick[idx] += val;
-
-        // Update idx to that of parent in update View
-        idx += idx & (-idx);
+    FenwickTree(int n) {
+        this->n = n;
+        bit.assign(n, 0);
     }
-}
 
-// Used to get sum from index 0 to the index passed
-int getSum(vector<int> &fenwickTree, int index) {
-    int sum = 0;  // Iniialize result
-
-    // index in fenwickTree[] is 1 more than the index in arr[]
-    index = index + 1;
-
-    // Traverse ancestors of fenwickTree[index]
-    while (index > 0) {
-        // Add current element of fenwickTree to sum
-        sum += fenwickTree[index];
-
-        // Move index to parent node in getSum View
-        index -= index & (-index);
+    FenwickTree(vector<int> a) : FenwickTree(a.size()) {
+        for (int i = 0; i < a.size(); i++)
+            add(i, a[i]);
     }
-    return sum;
-}
+
+    int sum(int r) {
+        int ret = 0;
+        for (; r >= 0; r = (r & (r + 1)) - 1)
+            ret += bit[r];
+        return ret;
+    }
+
+    int sum(int l, int r) {
+        return sum(r) - sum(l - 1);
+    }
+    void update(int idx,int val,vector<int> &arr){
+        add(idx,val-arr[idx]);
+        arr[idx]=val;
+    }
+
+    void add(int idx, int delta) {
+
+        for (; idx < n; idx = idx | (idx + 1))
+            bit[idx] += delta;
+    }
+};
 void fenwickTree(int n, vector<int> &arr, int q, vector<tuple<int, int, int>> &queries) {
     // Write your code here.
-    vector<int> fenwick(arr.size() + 1, 0);  // Fenwick tree
+    // Initialised Fenwick tree using array
+    FenwickTree tree(arr);
+    
+   
 
-    // Generating the fenwick tree.
-    for (int i = 1; i <= n; i++) {
-        updateFenwick(fenwick, n, i, arr[i]);
-    }
     // Processing the queries
     for (int i = 0; i < q; i++) {
         if (get<0>(queries[i]) == 1) {
             // Sum Query
-            if (get<1>(queries[i]) == 0) {
-                // If we need sum from first index to the given index
-                cout << getSum(fenwick, get<2>(queries[i])) << endl;
-            } else {
-                cout << getSum(fenwick, get<2>(queries[i])) - getSum(fenwick, get<1>(queries[i]) - 1) << endl;
-            }
+           
+                cout<<tree.sum(get<1>(queries[i]),get<2>(queries[i]))<<endl;
+            
         } else {
-            updateFenwick(fenwick, n, get<1>(queries[i]), get<2>(queries[i]));
+            tree.update( get<1>(queries[i]), get<2>(queries[i]),arr);
             // Range update query
         }
     }

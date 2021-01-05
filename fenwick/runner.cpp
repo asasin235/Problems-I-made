@@ -8,8 +8,8 @@ int main() {
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
 #ifndef ONLINE_JUDGE
-    freopen("testcases/large/in/input1.txt", "r", stdin);
-    freopen("testcases/large/out/output1.txt", "w", stdout);
+    freopen("testcases/large/in/input10.txt", "r", stdin);
+    freopen("testcases/large/out/output10.txt", "w", stdout);
 #endif
     int t;
     cin >> t;
@@ -22,8 +22,9 @@ int main() {
         }
         int q;
         cin >> q;
+        int cpy=q;
         vector<tuple<int, int, int> > queries;
-        while (q--) {
+        while (cpy--) {
             int a, b, c;
             cin >> a >> b >> c;
             queries.push_back({a, b, c});

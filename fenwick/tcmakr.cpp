@@ -22,7 +22,7 @@ int main() {
     srand(time(0));
 
     int t;
-    t = 1;
+    t = getRandomFromRange(7, 10);
     cout << t << endl;
 
     while (t--) {
@@ -74,13 +74,13 @@ int main() {
         // cout << q << endl;
         // ****************************************************
 
-        int n = getRandomFromRange(5, 10);
+        int n = getRandomFromRange(10000, 100000);
         cout << n << endl;
         for (int i = 0; i < n; i++) {
-            cout << getRandomFromRange(9, 20) << " ";
+            cout << getRandomFromRange(-90000, 200000) << " ";
         }
         cout << endl;
-        int q = getRandomFromRange(4, 9);
+        int q = getRandomFromRange(40000, 90000);
         cout << q << endl;
         while (q--) {
             int b, c;
@@ -91,7 +91,7 @@ int main() {
                 // sum
             } else {
                 b = getRandomFromRange(0, n - 1);
-                c = getRandomFromRange(3, 3000);  // any val
+                c = getRandomFromRange(-3000, 300);  // any val
                 // update
             }
             cout << a << " " << b << " " << c << endl;
